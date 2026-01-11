@@ -73,9 +73,9 @@ export default function CodeComparisonSection() {
             </div>
 
             {/* IDE Window */}
-            <div className="rounded-2xl border border-border/50 bg-[#101010] shadow-2xl overflow-hidden flex flex-col md:flex-row h-150 md:h-125">
+            <div className="rounded-2xl border border-border/50 bg-variant shadow-2xl overflow-hidden flex flex-col md:flex-row h-150 md:h-125">
                {/* Sidebar (File Tree) */}
-               <div className="hidden md:flex w-58 border-r border-border/50 flex-col bg-[#101010]">
+               <div className="hidden md:flex w-58 border-r border-border/50 flex-col bg-variant">
                   <div className="h-10 border-b border-border/50 flex items-center px-4">
                      <span className="text-xs font-semibold text-zinc-500 tracking-wider uppercase">
                         Explorer
@@ -100,8 +100,8 @@ export default function CodeComparisonSection() {
                {/* Main Editor Area */}
                <div className="flex-1 flex flex-col min-w-0">
                   {/* Tabs */}
-                  <div className="h-10 border-b border-border/50 flex items-center bg-[#101010]">
-                     <div className="h-full px-6 flex items-center gap-2 border-r border-border/50 bg-[#101010] text-xs text-blue-400 font-medium relative">
+                  <div className="h-10 border-b border-border/50 flex items-center bg-variant">
+                     <div className="h-full px-6 flex items-center gap-2 border-r border-border/50 bg-variant text-xs text-blue-400 font-medium relative">
                         <div className="absolute top-0 left-0 w-full h-0.5 bg-blue-500"></div>
                         <Split className="w-3.5 h-3.5" /> Comparison View
                      </div>
@@ -116,7 +116,7 @@ export default function CodeComparisonSection() {
                   {/* Code Split */}
                   <div className="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5 overflow-hidden">
                      {/* Left: Source */}
-                     <div className="relative bg-[#101010] flex flex-col">
+                     <div className="relative bg-variant flex flex-col">
                         <div className="absolute top-4 right-4 z-10">
                            <span className="px-2 py-1 rounded bg-zinc-800/50 border border-border/50 text-[10px] font-medium text-zinc-400 uppercase tracking-wide">
                               Original
@@ -146,7 +146,7 @@ export default function CodeComparisonSection() {
                         </CodeBlock>
                      </div>
                      {/* Right: Obfuscated */}
-                     <div className="relative bg-[#101010] flex flex-col">
+                     <div className="relative bg-variant flex flex-col">
                         <div className="absolute top-4 right-4 z-10">
                            <span className="px-2 py-1 rounded bg-blue-900/20 border border-blue-500/20 text-[10px] font-medium text-blue-400 uppercase tracking-wide shadow-[0_0_10px_rgba(59,130,246,0.2)]">
                               Protected
@@ -157,7 +157,7 @@ export default function CodeComparisonSection() {
                            defaultValue={obfuscatedCode[0].language}
                            className="border-0"
                         >
-                           <CodeBlockBody className="bg-[#101010]">
+                           <CodeBlockBody className="bg-variant">
                               {(item) => (
                                  <CodeBlockItem
                                     key={item.language}

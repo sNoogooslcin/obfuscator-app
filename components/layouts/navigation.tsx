@@ -1,10 +1,11 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Box } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Navigation() {
+export default function Navigation({ className }: { className?: string }) {
    const [scrolled, setScrolled] = useState(false);
 
    useEffect(() => {
@@ -24,7 +25,12 @@ export default function Navigation() {
                : "border-b border-transparent bg-transparent backdrop-blur-none py-6"
          }`}
       >
-         <div className="relative max-w-7xl mx-auto px-6 flex items-center justify-between">
+         <div
+            className={cn(
+               "relative max-w-7xl mx-auto px-6 flex items-center justify-between",
+               className
+            )}
+         >
             {/* Logo */}
             <Link href="/">
                <div className="flex items-center gap-2.5 group cursor-pointer">
@@ -53,7 +59,7 @@ export default function Navigation() {
                   Documentation
                </Link>
                <Link
-                  href="#"
+                  href="/playground"
                   className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
                >
                   Playground
