@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 
 export default function FaqSection() {
    const faqs = [
@@ -73,7 +73,7 @@ export default function FaqSection() {
    ];
 
    return (
-      <section className="relative z-10 py-24 px-6 border-t border-white/5 bg-background">
+      <section className="relative z-10 py-24 px-6 border-t border-white/5 bg-surfaceHighlight/30">
          <div className="max-w-3xl mx-auto">
             <h2 className="text-2xl font-semibold text-white tracking-tight mb-8">
                Common Questions
@@ -81,22 +81,22 @@ export default function FaqSection() {
 
             <div className="grid gap-4">
                {faqs.map((faq, index) => (
-                  <details
+                  <div
                      key={index}
-                     className="group bg-[#0A0A0C] border border-white/5 rounded-lg overflow-hidden [&_summary::-webkit-details-marker]:hidden"
+                     className="border-b border-white/5 pb-4 group"
                   >
-                     <summary className="flex items-center justify-between p-4 cursor-pointer select-none">
-                        <span className="text-sm font-medium text-zinc-200">
+                     <details className="group">
+                        <summary className="list-none flex justify-between items-center cursor-pointer py-4 text-base font-medium text-zinc-300 group-hover:text-white transition-colors">
                            {faq.question}
-                        </span>
-                        <span className="transition-transform duration-300 group-open:rotate-180">
-                           <ChevronDown className="w-4 h-4 text-zinc-500" />
-                        </span>
-                     </summary>
-                     <div className="px-4 pb-4 text-xs text-zinc-400 leading-relaxed">
-                        {faq.answer}
-                     </div>
-                  </details>
+                           <span className="ml-4 shrink-0 text-zinc-500 group-open:rotate-45 transition-transform">
+                              <Plus className="w-4 h-4" />
+                           </span>
+                        </summary>
+                        <p className="text-zinc-500 text-sm leading-relaxed pb-4">
+                           {faq.answer}
+                        </p>
+                     </details>
+                  </div>
                ))}
             </div>
          </div>

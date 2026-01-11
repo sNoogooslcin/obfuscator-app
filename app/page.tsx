@@ -1,4 +1,5 @@
 import CodeComparisonSection from "@/components/code-comparison-section";
+import CtaSection from "@/components/cta-section";
 import FaqSection from "@/components/faq-section";
 import FeaturesSection from "@/components/features-section";
 import HeroSection from "@/components/hero-section";
@@ -9,11 +10,12 @@ export default function Home() {
    return (
       <main className="min-h-screen bg-background">
          <HeroSection />
-         <FeaturesSection />
          <CodeComparisonSection />
+         <FeaturesSection />
          <WorkflowSection />
          <UseCasesSection />
          <FaqSection />
+         <CtaSection />
       </main>
    );
 }

@@ -28,10 +28,8 @@ export default function RootLayout({
    return (
       <html lang="en" className="scroll-smooth">
          <body
-            className={`${inter.variable} ${jetbrainsMono.variable} relative overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200 antialiased`}
+            className={`${inter.className} ${jetbrainsMono.variable} relative overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200 antialiased`}
          >
-            {/* <div className="noise"></div> */}
-
             {/* Background Ambience */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-150 bg-grid-pattern opacity-[0.15] grid-bg"></div>

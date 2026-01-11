@@ -1,10 +1,30 @@
+"use client";
+
 import { Box } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navigation() {
+   const [scrolled, setScrolled] = useState(false);
+
+   useEffect(() => {
+      const handleScroll = () => {
+         setScrolled(window.scrollY > 150);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+   }, []);
+
    return (
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-background/80 backdrop-blur-md">
-         <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
+      <nav
+         className={`sticky top-0 w-full z-50 transition-all duration-300 ${
+            scrolled
+               ? "border-b border-white/5 bg-background/80 backdrop-blur-md py-4"
+               : "border-b border-transparent bg-transparent backdrop-blur-none py-6"
+         }`}
+      >
+         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-2.5 group cursor-pointer">
                <div className="relative w-6 h-6 flex items-center justify-center">
@@ -48,7 +68,7 @@ export default function Navigation() {
                </Link>
                <Link
                   href="#"
-                  className="bg-zinc-100 hover:bg-white text-zinc-950 px-4 py-2 rounded text-xs font-bold tracking-wide transition-colors uppercase"
+                  className="bg-zinc-100 hover:bg-white text-zinc-950 px-4 py-2 rounded text-xs font-semibold tracking-wide transition-colors uppercase"
                >
                   Start Protecting
                </Link>

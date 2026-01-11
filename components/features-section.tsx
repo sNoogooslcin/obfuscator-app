@@ -1,5 +1,19 @@
+"use client";
+
 import { AlertTriangle, ArrowUpRight, Cpu, EyeOff, Split } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { AntiTamperVisual } from "./features/anti-tamper-visual";
+import { ConsoleAnimation } from "./features/console-animation";
+import { ControlFlowVisual } from "./features/control-flow-visual";
+
+const VmSynthesisVisual = dynamic(
+   () =>
+      import("./features/vm-synthesis-visual").then(
+         (mod) => mod.VmSynthesisVisual
+      ),
+   { ssr: false }
+);
 
 export default function FeaturesSection() {
    return (
@@ -23,10 +37,10 @@ export default function FeaturesSection() {
                </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[250px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[300px]">
                {/* Feature 1: Large */}
-               <div className="md:col-span-2 rounded-xl bg-surface border border-white/5 p-8 relative overflow-hidden group hover:border-white/10 transition-colors">
-                  <div className="absolute right-0 top-0 w-64 h-64 bg-linear-to-br from-blue-500/10 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+               <div className="md:col-span-2 rounded-xl bg-[#101010] border border-border/30 p-8 relative overflow-hidden group transition-colors">
+                  <VmSynthesisVisual />
 
                   <div className="h-full flex flex-col justify-between relative z-10">
                      <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-white mb-4">
@@ -47,8 +61,9 @@ export default function FeaturesSection() {
                </div>
 
                {/* Feature 2 */}
-               <div className="md:col-span-1 rounded-xl bg-surface border border-white/5 p-8 relative overflow-hidden group hover:border-white/10 transition-colors">
-                  <div className="h-full flex flex-col justify-between">
+               <div className="md:col-span-1 rounded-xl bg-[#101010] border border-border/30 p-8 relative overflow-hidden group transition-colors">
+                  <AntiTamperVisual />
+                  <div className="h-full flex flex-col justify-between relative z-10">
                      <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-white mb-4">
                         <EyeOff className="w-5 h-5" />
                      </div>
@@ -65,8 +80,9 @@ export default function FeaturesSection() {
                </div>
 
                {/* Feature 3 */}
-               <div className="md:col-span-1 rounded-xl bg-surface border border-white/5 p-8 relative overflow-hidden group hover:border-white/10 transition-colors">
-                  <div className="h-full flex flex-col justify-between">
+               <div className="md:col-span-1 rounded-xl bg-[#101010] border border-border/30 p-8 relative overflow-hidden group transition-colors">
+                  <ControlFlowVisual />
+                  <div className="h-full flex flex-col justify-between relative z-10">
                      <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-white mb-4">
                         <Split className="w-5 h-5" />
                      </div>
@@ -83,8 +99,9 @@ export default function FeaturesSection() {
                </div>
 
                {/* Feature 4: Large */}
-               <div className="md:col-span-2 rounded-xl bg-surface border border-white/5 p-8 relative overflow-hidden group hover:border-white/10 transition-colors flex items-center">
-                  <div className="grid md:grid-cols-2 gap-8 items-center w-full">
+               <div className="md:col-span-2 rounded-xl bg-[#101010] border border-border/30 p-8 relative overflow-hidden group transition-colors flex items-center">
+                  {/* <IrreversibleVisual /> */}
+                  <div className="grid md:grid-cols-2 gap-8 items-center w-full relative z-10">
                      <div>
                         <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-white mb-4">
                            <AlertTriangle className="w-5 h-5" />
@@ -99,23 +116,7 @@ export default function FeaturesSection() {
                            deobfuscators ineffective.
                         </p>
                      </div>
-                     <div className="hidden md:block bg-[#050507] rounded-lg border border-white/5 p-4 font-mono text-xs text-zinc-500 select-none opacity-70">
-                        <div className="flex gap-2 mb-2">
-                           <span className="w-3 h-3 rounded-full bg-red-500/20"></span>
-                           <span className="w-3 h-3 rounded-full bg-yellow-500/20"></span>
-                        </div>
-                        <div className="space-y-1">
-                           <p>
-                              <span className="text-purple-400">Error:</span>{" "}
-                              Unknown OpCode
-                           </p>
-                           <p>at VirtualMachine.exec (vm.js:402)</p>
-                           <p>at Generator.next (&lt;anonymous&gt;)</p>
-                           <p className="text-zinc-600">
-                              ... Stack trace hidden
-                           </p>
-                        </div>
-                     </div>
+                     <ConsoleAnimation />
                   </div>
                </div>
             </div>

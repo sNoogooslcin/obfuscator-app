@@ -2,7 +2,7 @@ import { Shield, Terminal } from "lucide-react";
 
 export default function HeroSection() {
    return (
-      <section className="relative z-10 pt-32 pb-20 px-6 border-b border-white/5">
+      <section className="relative z-10 pt-28 pb-20 px-6 border-b border-white/5">
          <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-blue-500/20 bg-blue-500/5 mb-8">
                <span className="relative flex h-2 w-2">
@@ -21,7 +21,7 @@ export default function HeroSection() {
                </span>
             </h1>
 
-            <p className="text-lg text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+            <p className="font-inter text-lg text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
                Transform readable source code into a custom virtual machine
                instruction set. The definitive standard for client-side logic
                protection.
@@ -34,7 +34,7 @@ export default function HeroSection() {
                </button>
                <button className="flex-1 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-12 py-2 px-4 rounded flex items-center justify-center gap-2 font-medium transition-colors cursor-pointer">
                   <Terminal className="w-4 h-4" />
-                  View API Docs
+                  Documentation
                </button>
             </div>
 
@@ -52,7 +52,7 @@ export default function HeroSection() {
                   </div>
                   <div className="p-6 flex flex-col items-center gap-2 group hover:bg-white/2 transition-colors cursor-default">
                      <span className="text-2xl font-mono text-white tracking-tighter">
-                        0ms
+                        0.1ms
                      </span>
                      <span className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">
                         Decryption Lag
@@ -60,10 +60,10 @@ export default function HeroSection() {
                   </div>
                   <div className="p-6 flex flex-col items-center gap-2 group hover:bg-white/2 transition-colors cursor-default">
                      <span className="text-2xl font-mono text-white tracking-tighter">
-                        Poly
+                        40%
                      </span>
                      <span className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">
-                        Morphic Output
+                        Code Compression Ratio
                      </span>
                   </div>
                   <div className="p-6 flex flex-col items-center gap-2 group hover:bg-white/2 transition-colors cursor-default">

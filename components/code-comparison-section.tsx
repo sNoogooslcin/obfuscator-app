@@ -1,8 +1,66 @@
+"use client";
+
+import { cn } from "@/lib/utils";
 import { FileCode, FileLock, Settings, Split } from "lucide-react";
+import { BundledLanguage } from "shiki";
+import {
+   CodeBlock,
+   CodeBlockBody,
+   CodeBlockContent,
+   CodeBlockItem,
+} from "./kibo-ui/code-block";
+import { DotPattern } from "./ui/dot-pattern";
+
+const originalCode = [
+   {
+      language: "typescript",
+      filename: "original.ts",
+      code: `// Calculate Discount Logic function 
+getDiscount(user) { 
+   const VIP_RATE = 0.25; 
+   const STD_RATE = 0.10;
+   
+   if (user.isPremium())
+   {
+      return user.cartTotal * VIP_RATE;
+   }
+
+   return user.cartTotal * STD_RATE;
+}
+   
+export { getDiscount };`,
+   },
+];
+
+const obfuscatedCode = [
+   {
+      language: "typescript",
+      filename: "obfuscated.ts",
+      code: `var _0x4e2d=['w5PDpsO8','wrHCpA=='...];
+(function(_0x1a2b,_0x3c4d)
+{ var _0x5e6f=_0x4e2d;while(!![])
+{ try{ var _0x7g8h=parseInt
+(_0x5e6f(0x1))... }catch(_0x9i0j){ _0x1a2b
+['push'](_0x1a2b['shift']());
+ } } }(_0x4e2d,0x1e4));
+function _vm_exec(_0xOP,_0xST){
+/* VM Bytecode execution loop */
+for(;;){ switch(_0xOP[IP++])
+{ case 0xA4: ST.push(ST.pop
+ ()+ST.pop());break;
+case 0xF2: return; } } }`,
+   },
+];
 
 export default function CodeComparisonSection() {
    return (
-      <section className="relative z-10 py-24 bg-[#050507] border-y border-white/5">
+      <section className="relative z-10 py-24 bg-[#050507] border-y border-border/50">
+         <DotPattern
+            glow
+            className={cn(
+               "mask-[radial-gradient(450px_circle_at_center,white,transparent)] mt-20 -z-10"
+            )}
+         />
          <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
                <h2 className="text-3xl font-semibold text-white tracking-tight mb-4">
@@ -15,10 +73,10 @@ export default function CodeComparisonSection() {
             </div>
 
             {/* IDE Window */}
-            <div className="rounded-xl border border-white/10 bg-[#0A0A0C] shadow-2xl overflow-hidden flex flex-col md:flex-row h-150 md:h-125">
+            <div className="rounded-2xl border border-border/50 bg-[#101010] shadow-2xl overflow-hidden flex flex-col md:flex-row h-150 md:h-125">
                {/* Sidebar (File Tree) */}
-               <div className="hidden md:flex w-64 border-r border-white/5 flex-col bg-[#08080a]">
-                  <div className="h-10 border-b border-white/5 flex items-center px-4">
+               <div className="hidden md:flex w-58 border-r border-border/50 flex-col bg-[#101010]">
+                  <div className="h-10 border-b border-border/50 flex items-center px-4">
                      <span className="text-xs font-semibold text-zinc-500 tracking-wider uppercase">
                         Explorer
                      </span>
@@ -42,8 +100,8 @@ export default function CodeComparisonSection() {
                {/* Main Editor Area */}
                <div className="flex-1 flex flex-col min-w-0">
                   {/* Tabs */}
-                  <div className="h-10 border-b border-white/5 flex items-center bg-[#08080a]">
-                     <div className="h-full px-6 flex items-center gap-2 border-r border-white/5 bg-[#0A0A0C] text-xs text-blue-400 font-medium relative">
+                  <div className="h-10 border-b border-border/50 flex items-center bg-[#101010]">
+                     <div className="h-full px-6 flex items-center gap-2 border-r border-border/50 bg-[#101010] text-xs text-blue-400 font-medium relative">
                         <div className="absolute top-0 left-0 w-full h-0.5 bg-blue-500"></div>
                         <Split className="w-3.5 h-3.5" /> Comparison View
                      </div>
@@ -58,248 +116,64 @@ export default function CodeComparisonSection() {
                   {/* Code Split */}
                   <div className="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5 overflow-hidden">
                      {/* Left: Source */}
-                     <div className="relative bg-[#0A0A0C] flex flex-col">
+                     <div className="relative bg-[#101010] flex flex-col">
                         <div className="absolute top-4 right-4 z-10">
-                           <span className="px-2 py-1 rounded bg-zinc-800/50 border border-white/5 text-[10px] font-medium text-zinc-400 uppercase tracking-wide">
+                           <span className="px-2 py-1 rounded bg-zinc-800/50 border border-border/50 text-[10px] font-medium text-zinc-400 uppercase tracking-wide">
                               Original
                            </span>
                         </div>
-                        <div className="flex-1 overflow-auto p-6 font-mono text-sm leading-relaxed custom-scroll">
-                           <div className="text-zinc-600 select-none absolute left-3 top-6 w-6 text-right text-xs">
-                              1<br />2<br />3<br />4<br />5<br />6<br />7<br />8
-                              <br />
-                              9<br />
-                              10
-                              <br />
-                              11
-                              <br />
-                              12
-                           </div>
-                           <div className="pl-8">
-                              <span className="code-token-comment">
-                                 {"// Calculate Discount Logic"}
-                              </span>
-                              <br />
-                              <span className="code-token-keyword">
-                                 function
-                              </span>{" "}
-                              <span className="code-token-function">
-                                 getDiscount
-                              </span>
-                              (<span className="code-token-operator">user</span>
-                              ) {"{"}
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">
-                                 const
-                              </span>{" "}
-                              <span className="code-token-operator">
-                                 VIP_RATE
-                              </span>{" "}
-                              = <span className="code-token-number">0.25</span>;
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">
-                                 const
-                              </span>{" "}
-                              <span className="code-token-operator">
-                                 STD_RATE
-                              </span>{" "}
-                              = <span className="code-token-number">0.10</span>;
-                              <br />
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">if</span> (
-                              <span className="code-token-operator">user</span>.
-                              <span className="code-token-function">
-                                 isPremium
-                              </span>
-                              ())
-                              {" {"}
-                              <br />
-                              {"    "}
-                              <span className="code-token-keyword">
-                                 return
-                              </span>{" "}
-                              <span className="code-token-operator">user</span>.
-                              <span className="code-token-function">
-                                 cartTotal
-                              </span>{" "}
-                              *{" "}
-                              <span className="code-token-operator">
-                                 VIP_RATE
-                              </span>
-                              ;
-                              <br />
-                              {"  "}
-                              {"}"}
-                              <br />
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">
-                                 return
-                              </span>{" "}
-                              <span className="code-token-operator">user</span>.
-                              <span className="code-token-function">
-                                 cartTotal
-                              </span>{" "}
-                              *{" "}
-                              <span className="code-token-operator">
-                                 STD_RATE
-                              </span>
-                              ;
-                              <br />
-                              {"}"}
-                              <br />
-                              <br />
-                              <span className="code-token-function">
-                                 export
-                              </span>{" "}
-                              {"{ "}{" "}
-                              <span className="code-token-function">
-                                 getDiscount
-                              </span>{" "}
-                              {"}"};
-                           </div>
-                        </div>
+                        <CodeBlock
+                           data={originalCode}
+                           defaultValue={originalCode[0].language}
+                           className="border-0"
+                        >
+                           <CodeBlockBody>
+                              {(item) => (
+                                 <CodeBlockItem
+                                    key={item.language}
+                                    value={item.language}
+                                 >
+                                    <CodeBlockContent
+                                       language={
+                                          item.language as BundledLanguage
+                                       }
+                                    >
+                                       {item.code}
+                                    </CodeBlockContent>
+                                 </CodeBlockItem>
+                              )}
+                           </CodeBlockBody>
+                        </CodeBlock>
                      </div>
-
                      {/* Right: Obfuscated */}
-                     <div className="relative bg-[#0A0A0C] flex flex-col">
+                     <div className="relative bg-[#101010] flex flex-col">
                         <div className="absolute top-4 right-4 z-10">
                            <span className="px-2 py-1 rounded bg-blue-900/20 border border-blue-500/20 text-[10px] font-medium text-blue-400 uppercase tracking-wide shadow-[0_0_10px_rgba(59,130,246,0.2)]">
                               Protected
                            </span>
                         </div>
-                        <div className="flex-1 overflow-auto p-6 font-mono text-sm leading-relaxed custom-scroll">
-                           <div className="text-zinc-700 select-none absolute left-3 top-6 w-6 text-right text-xs">
-                              1<br />2<br />3<br />4<br />5<br />6<br />7<br />8
-                              <br />
-                              9<br />
-                              10
-                              <br />
-                              11
-                              <br />
-                              12
-                           </div>
-                           <div className="pl-8 text-zinc-500 break-all">
-                              <span className="code-token-keyword">var</span>{" "}
-                              _0x4e2d=[
-                              <span className="code-token-string">
-                                 &#39;w5PDpsO8&#39;
-                              </span>
-                              ,
-                              <span className="code-token-string">
-                                 &#39;wrHCpA==&#39;
-                              </span>
-                              ...];
-                              <br />
-                              <span className="code-token-keyword">(</span>
-                              <span className="code-token-function">
-                                 function
-                              </span>
-                              (_0x1a2b,_0x3c4d)
-                              <span className="code-token-keyword">{"{"}</span>
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">
-                                 var
-                              </span>{" "}
-                              _0x5e6f=
-                              <span className="code-token-function">
-                                 _0x4e2d
-                              </span>
-                              ;
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">while</span>
-                              (!![])
-                              <span className="code-token-keyword">{"{"}</span>
-                              <br />
-                              {"    "}
-                              <span className="code-token-keyword">try</span>
-                              <span className="code-token-keyword">{"{"}</span>
-                              <br />
-                              {"      "}
-                              <span className="code-token-keyword">
-                                 var
-                              </span>{" "}
-                              _0x7g8h=
-                              <span className="code-token-function">
-                                 parseInt
-                              </span>
-                              (_0x5e6f(
-                              <span className="code-token-number">0x1</span>
-                              ))...
-                              <br />
-                              {"    "}
-                              <span className="code-token-keyword">{"}"}</span>
-                              <span className="code-token-keyword">catch</span>
-                              (_0x9i0j)
-                              <span className="code-token-keyword">{"{"}</span>
-                              <br />
-                              {"      "}
-                              _0x1a2b[&#39;push&#39;](_0x1a2b[&#39;shift&#39;]());
-                              <br />
-                              {"    "}
-                              <span className="code-token-keyword">{"}"}</span>
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">{"}"}</span>
-                              <br />
-                              <span className="code-token-keyword">{"}"}</span>
-                              (_0x4e2d,
-                              <span className="code-token-number">0x1e4</span>)
-                              <span className="code-token-keyword">);</span>
-                              <br />
-                              <span className="code-token-keyword">
-                                 function
-                              </span>{" "}
-                              <span className="code-token-function">
-                                 _vm_exec
-                              </span>
-                              (_0xOP,_0xST)
-                              <span className="code-token-keyword">{"{"}</span>
-                              <br />
-                              {"  "}
-                              <span className="code-token-comment">
-                                 {"/* VM Bytecode execution loop */"}
-                              </span>
-                              <br />
-                              {"  "}
-                              <span className="code-token-keyword">for</span>
-                              (;;)
-                              <span className="code-token-keyword">{"{"}</span>
-                              <br />
-                              {"    "}
-                              <span className="code-token-keyword">switch</span>
-                              (_0xOP[IP++]){"{"}
-                              <br />
-                              {"       "}
-                              <span className="code-token-keyword">
-                                 case
-                              </span>{" "}
-                              <span className="code-token-number">0xA4</span>:
-                              ST.push(ST.pop()+ST.pop());
-                              <span className="code-token-keyword">break</span>;
-                              <br />
-                              {"       "}
-                              <span className="code-token-keyword">
-                                 case
-                              </span>{" "}
-                              <span className="code-token-number">0xF2</span>:{" "}
-                              <span className="code-token-keyword">return</span>
-                              ;
-                              <br />
-                              {"    "}
-                              {"}"}
-                              <br />
-                              {"  "}
-                              {"}"}
-                              <br />
-                              {"}"}
-                           </div>
-                        </div>
+                        <CodeBlock
+                           data={obfuscatedCode}
+                           defaultValue={obfuscatedCode[0].language}
+                           className="border-0"
+                        >
+                           <CodeBlockBody className="bg-[#101010]">
+                              {(item) => (
+                                 <CodeBlockItem
+                                    key={item.language}
+                                    value={item.language}
+                                 >
+                                    <CodeBlockContent
+                                       language={
+                                          item.language as BundledLanguage
+                                       }
+                                    >
+                                       {item.code}
+                                    </CodeBlockContent>
+                                 </CodeBlockItem>
+                              )}
+                           </CodeBlockBody>
+                        </CodeBlock>
                      </div>
                   </div>
                </div>
