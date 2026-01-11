@@ -69,13 +69,13 @@ export default function Navigation({ className }: { className?: string }) {
             {/* Actions */}
             <div className="flex items-center gap-6">
                <Link
-                  href="#"
+                  href="/login"
                   className="text-sm font-medium text-zinc-400 hover:text-white transition-colors hidden sm:block"
                >
                   Log in
                </Link>
                <Link
-                  href="#"
+                  href="/signup"
                   className="bg-zinc-100 hover:bg-white text-zinc-950 px-4 py-2 rounded text-xs font-semibold tracking-wide transition-colors uppercase"
                >
                   Start Protecting

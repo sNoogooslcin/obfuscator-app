@@ -16,6 +16,9 @@
    --color-accent: #3b82f6; /* Blue */
    --color-accentGlow: #60a5fa;
 
+   --muted: oklch(0.269 0 0);
+   --muted-foreground: oklch(0.708 0 0);
+
    --background-image-grid-pattern: linear-gradient(
          to right,
          #1f1f1f 1px,
