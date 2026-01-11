@@ -1,6 +1,13 @@
+"use client";
+
+import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
 
 export default function FaqSection() {
+   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
    const faqs = [
       {
          question: "Why would I want to obfuscate my JavaScript code?",
@@ -73,31 +80,62 @@ export default function FaqSection() {
    ];
 
    return (
-      <section className="relative z-10 py-24 px-6 border-t border-white/5 bg-surfaceHighlight/30">
+      <section className="relative z-10 py-24 px-6 bg-variant">
          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-semibold text-white tracking-tight mb-8">
+            <h2 className="text-3xl font-semibold text-white tracking-tight mb-8">
                Common Questions
             </h2>
 
             <div className="grid gap-4">
-               {faqs.map((faq, index) => (
-                  <div
-                     key={index}
-                     className="border-b border-white/5 pb-4 group"
-                  >
-                     <details className="group">
-                        <summary className="list-none flex justify-between items-center cursor-pointer py-4 text-base font-medium text-zinc-300 group-hover:text-white transition-colors">
-                           {faq.question}
-                           <span className="ml-4 shrink-0 text-zinc-500 group-open:rotate-45 transition-transform">
-                              <Plus className="w-4 h-4" />
-                           </span>
-                        </summary>
-                        <p className="text-zinc-500 text-sm leading-relaxed pb-4">
-                           {faq.answer}
-                        </p>
-                     </details>
-                  </div>
-               ))}
+               {faqs.map((faq, index) => {
+                  const isOpen = openIndex === index;
+
+                  return (
+                     <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.25, delay: 0.03 * index }}
+                        className="border-b border-white/5 pb-4 group"
+                     >
+                        <button
+                           onClick={() => setOpenIndex(isOpen ? null : index)}
+                           className="w-full text-left focus:outline-none"
+                        >
+                           <div className="flex justify-between items-center cursor-pointer py-4 text-base font-medium text-zinc-300 group-hover:text-white transition-colors">
+                              {faq.question}
+                              <span
+                                 className={cn(
+                                    "ml-4 shrink-0 text-zinc-500 transition-transform duration-300",
+                                    isOpen && "rotate-45 text-white"
+                                 )}
+                              >
+                                 <Plus className="w-4 h-4" />
+                              </span>
+                           </div>
+                        </button>
+                        <AnimatePresence initial={false}>
+                           {isOpen && (
+                              <motion.div
+                                 initial={{ height: 0, opacity: 0 }}
+                                 animate={{ height: "auto", opacity: 1 }}
+                                 exit={{ height: 0, opacity: 0 }}
+                                 transition={{
+                                    duration: 0.3,
+                                    ease: [0.04, 0.62, 0.23, 0.98],
+                                 }}
+                                 className="overflow-hidden"
+                              >
+                                 <p className="text-zinc-500 text-sm leading-relaxed pb-6 pr-8">
+                                    {faq.answer}
+                                 </p>
+                              </motion.div>
+                           )}
+                        </AnimatePresence>
+                     </motion.div>
+                  );
+               })}
             </div>
          </div>
       </section>

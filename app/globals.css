@@ -7,6 +7,7 @@
    --font-mono: var(--font-jetbrains-mono);
 
    --color-background: #030305;
+   --color-variant: #101010;
    --color-surface: #0a0a0c;
    --color-surfaceHighlight: #161618;
    --color-border: #222226;
@@ -35,6 +36,54 @@
    }
 }
 
+@layer base {
+   td,
+   th {
+      padding: 1rem;
+      text-align: left;
+   }
+
+   tr:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+   }
+}
+
+@layer components {
+   .glass {
+      background: rgba(10, 10, 12, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+   }
+
+   .grid-bg {
+      background-size: 50px 50px;
+      mask-image: radial-gradient(
+         circle at center,
+         black 40%,
+         transparent 100%
+      );
+      -webkit-mask-image: radial-gradient(
+         circle at center,
+         black 40%,
+         transparent 100%
+      );
+   }
+
+   .text-glow {
+      text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+   }
+
+   /* Custom Toggle Switch */
+   .toggle-checkbox:checked {
+      right: 0;
+      border-color: #3b82f6;
+   }
+   .toggle-checkbox:checked + .toggle-label {
+      background-color: #3b82f6;
+   }
+}
+
 body {
    background-color: var(--color-background);
    color: var(--color-primary);
@@ -55,35 +104,4 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
    background: #3f3f46;
-}
-
-/* Utilities */
-.glass {
-   background: rgba(10, 10, 12, 0.6);
-   backdrop-filter: blur(12px);
-   -webkit-backdrop-filter: blur(12px);
-   border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.grid-bg {
-   background-size: 50px 50px;
-   mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-   -webkit-mask-image: radial-gradient(
-      circle at center,
-      black 40%,
-      transparent 100%
-   );
-}
-
-.text-glow {
-   text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-}
-
-/* Custom Toggle Switch */
-.toggle-checkbox:checked {
-   right: 0;
-   border-color: #3b82f6;
-}
-.toggle-checkbox:checked + .toggle-label {
-   background-color: #3b82f6;
 }

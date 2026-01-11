@@ -10,6 +10,7 @@
    },
    "dependencies": {
       "@base-ui/react": "^1.0.0",
+      "@number-flow/react": "^0.5.10",
       "@radix-ui/react-use-controllable-state": "^1.2.2",
       "@shikijs/transformers": "^3.21.0",
       "@tabler/icons-react": "^3.36.1",
