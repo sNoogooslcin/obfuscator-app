@@ -2,11 +2,13 @@
 
 import { cn } from "@/lib/utils";
 import { Box } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navigation({ className }: { className?: string }) {
    const [scrolled, setScrolled] = useState(false);
+   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
    useEffect(() => {
       const handleScroll = () => {
@@ -16,6 +18,17 @@ export default function Navigation({ className }: { className?: string }) {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
    }, []);
+
+   useEffect(() => {
+      if (isMobileMenuOpen) {
+         document.body.style.overflow = "hidden";
+      } else {
+         document.body.style.overflow = "";
+      }
+      return () => {
+         document.body.style.overflow = "";
+      };
+   }, [isMobileMenuOpen]);
 
    return (
       <nav
@@ -32,7 +45,7 @@ export default function Navigation({ className }: { className?: string }) {
             )}
          >
             {/* Logo */}
-            <Link href="/">
+            <Link href="/" className="relative z-50">
                <div className="flex items-center gap-2.5 group cursor-pointer">
                   <div className="relative w-6 h-6 flex items-center justify-center">
                      <div className="absolute inset-0 bg-blue-500/20 rounded-md blur-sm group-hover:bg-blue-500/40 transition-all"></div>
@@ -44,7 +57,7 @@ export default function Navigation({ className }: { className?: string }) {
                </div>
             </Link>
 
-            {/* Links */}
+            {/* Desktop Links */}
             <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8">
                <Link
                   href="/pricing"
@@ -67,10 +80,10 @@ export default function Navigation({ className }: { className?: string }) {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-6">
                <Link
                   href="/login"
-                  className="text-sm font-medium text-zinc-400 hover:text-white transition-colors hidden sm:block"
+                  className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
                >
                   Log in
                </Link>
@@ -81,7 +94,121 @@ export default function Navigation({ className }: { className?: string }) {
                   Start Protecting
                </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden relative z-50">
+               <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none"
+               >
+                  <motion.span
+                     animate={
+                        isMobileMenuOpen
+                           ? { rotate: 45, y: 8 }
+                           : { rotate: 0, y: 0 }
+                     }
+                     transition={{
+                        type: "tween",
+                        ease: "easeInOut",
+                        duration: 0.2,
+                     }}
+                     className="w-6 h-0.5 bg-white block rounded-full"
+                  ></motion.span>
+                  <motion.span
+                     animate={
+                        isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }
+                     }
+                     transition={{
+                        type: "tween",
+                        ease: "easeInOut",
+                        duration: 0.2,
+                     }}
+                     className="w-6 h-0.5 bg-white block rounded-full"
+                  ></motion.span>
+                  <motion.span
+                     animate={
+                        isMobileMenuOpen
+                           ? { rotate: -45, y: -8 }
+                           : { rotate: 0, y: 0 }
+                     }
+                     transition={{
+                        type: "tween",
+                        ease: "easeInOut",
+                        duration: 0.2,
+                     }}
+                     className="w-6 h-0.5 bg-white block rounded-full"
+                  ></motion.span>
+               </button>
+            </div>
          </div>
+
+         {/* Mobile Menu Overlay */}
+         <AnimatePresence>
+            {isMobileMenuOpen && (
+               <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                  className="fixed inset-0 z-40 bg-zinc-950/95 backdrop-blur-xl flex flex-col pt-28 px-6 md:hidden"
+               >
+                  <div className="flex flex-col space-y-6 h-[calc(100%-2rem)]">
+                     {[
+                        { href: "/pricing", label: "Pricing" },
+                        { href: "#", label: "Documentation" },
+                        { href: "/playground", label: "Playground" },
+                     ].map((link, i) => (
+                        <motion.div
+                           key={link.label}
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1 }}
+                           transition={{
+                              delay: 0.1 + i * 0.05,
+                              type: "tween",
+                              ease: "easeOut",
+                              duration: 0.4,
+                           }}
+                        >
+                           <Link
+                              href={link.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="text-2xl font-semibold text-zinc-300 hover:text-white transition-colors block"
+                           >
+                              {link.label}
+                           </Link>
+                        </motion.div>
+                     ))}
+
+                     <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{
+                           delay: 0.25,
+                           type: "tween",
+                           ease: "easeOut",
+                           duration: 0.4,
+                        }}
+                        className="pt-8 flex flex-col gap-4 mt-auto"
+                     >
+                        <Link
+                           href="/login"
+                           onClick={() => setIsMobileMenuOpen(false)}
+                           className="w-full text-center py-3 text-zinc-300 hover:text-white font-medium border border-zinc-800 rounded-sm hover:bg-zinc-900 transition-all"
+                        >
+                           Log in
+                        </Link>
+                        <Link
+                           href="/signup"
+                           onClick={() => setIsMobileMenuOpen(false)}
+                           className="w-full text-center py-3 bg-white text-zinc-950 font-semibold rounded-sm hover:bg-zinc-200 transition-colors"
+                        >
+                           START PROTECTING
+                        </Link>
+                     </motion.div>
+                  </div>
+               </motion.div>
+            )}
+         </AnimatePresence>
       </nav>
    );
 }
