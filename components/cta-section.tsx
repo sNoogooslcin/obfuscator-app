@@ -1,7 +1,7 @@
 export default function CtaSection() {
    return (
       <>
-         <section className="relative z-10 py-32 bg-[#020203] m-8 rounded-3xl bg-grid-pattern overflow-hidden">
+         <section className="relative z-10 py-32 bg-[#020203] m-4 sm:m-8 rounded-3xl bg-grid-pattern overflow-hidden">
             <div className="absolute inset-0 z-0 pointer-events-none">
                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-150 bg-grid-pattern grid-bg"></div>
                <div className="absolute inset-0 bg-linear-to-tr from-blue-700 to-cyan-400 opacity-90" />
