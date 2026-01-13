@@ -11,7 +11,7 @@ export default function PricingHero() {
    };
 
    return (
-      <section className="relative z-10 pt-28 pb-20 px-6">
+      <section className="relative z-10 pt-20 sm:pt-28 pb-20 px-6">
          <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-blue-500/20 bg-blue-500/5 mb-8">
                <span className="relative flex h-2 w-2">
