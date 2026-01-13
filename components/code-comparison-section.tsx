@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { FileCode, FileLock, Settings, Split } from "lucide-react";
 import { BundledLanguage } from "shiki";
 import {
@@ -9,7 +8,6 @@ import {
    CodeBlockContent,
    CodeBlockItem,
 } from "./kibo-ui/code-block";
-import { DotPattern } from "./ui/dot-pattern";
 
 const originalCode = [
    {
@@ -55,12 +53,10 @@ case 0xF2: return; } } }`,
 export default function CodeComparisonSection() {
    return (
       <section className="relative z-10 py-24 bg-[#050507] border-y border-border/50">
-         <DotPattern
-            glow
-            className={cn(
-               "mask-[radial-gradient(450px_circle_at_center,white,transparent)] mt-20 -z-10"
-            )}
-         />
+         <div className="absolute inset-0 top-[40%] -z-10 pointer-events-none">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-150 bg-grid-pattern opacity-[0.15] grid-bg"></div>
+            <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-150 h-150 bg-blue-600/10 blur-[120px] rounded-full"></div>
+         </div>
          <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
                <h2 className="text-3xl font-semibold text-white tracking-tight mb-4">
