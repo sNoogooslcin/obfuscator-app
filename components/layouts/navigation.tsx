@@ -46,7 +46,11 @@ export default function Navigation({ className }: { className?: string }) {
                )}
             >
                {/* Logo */}
-               <Link href="/" className="relative z-50">
+               <Link
+                  href="/"
+                  className="relative z-50"
+                  onClick={() => setIsMobileMenuOpen(false)}
+               >
                   <div className="flex items-center gap-2.5 group cursor-pointer">
                      <div className="relative w-6 h-6 flex items-center justify-center">
                         <div className="absolute inset-0 bg-blue-500/20 rounded-md blur-sm group-hover:bg-blue-500/40 transition-all"></div>
