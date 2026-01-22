@@ -31,117 +31,118 @@ export default function Navigation({ className }: { className?: string }) {
    }, [isMobileMenuOpen]);
 
    return (
-      <nav
-         className={`sticky top-0 w-full z-50 transition-all duration-300 ${
-            scrolled
-               ? "border-b border-white/5 bg-background/80 backdrop-blur-md py-4"
-               : "border-b border-transparent bg-transparent backdrop-blur-none py-6"
-         }`}
-      >
-         <div
-            className={cn(
-               "relative max-w-7xl mx-auto px-6 flex items-center justify-between",
-               className
-            )}
+      <>
+         <nav
+            className={`sticky top-0 w-full z-50 transition-all duration-300 ${
+               scrolled
+                  ? "border-b border-white/5 bg-background/80 backdrop-blur-md py-4"
+                  : "border-b border-transparent bg-transparent backdrop-blur-none py-6"
+            }`}
          >
-            {/* Logo */}
-            <Link href="/" className="relative z-50">
-               <div className="flex items-center gap-2.5 group cursor-pointer">
-                  <div className="relative w-6 h-6 flex items-center justify-center">
-                     <div className="absolute inset-0 bg-blue-500/20 rounded-md blur-sm group-hover:bg-blue-500/40 transition-all"></div>
-                     <Box className="w-5 h-5 text-white relative z-10" />
+            <div
+               className={cn(
+                  "relative max-w-7xl mx-auto px-6 flex items-center justify-between",
+                  className,
+               )}
+            >
+               {/* Logo */}
+               <Link href="/" className="relative z-50">
+                  <div className="flex items-center gap-2.5 group cursor-pointer">
+                     <div className="relative w-6 h-6 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-blue-500/20 rounded-md blur-sm group-hover:bg-blue-500/40 transition-all"></div>
+                        <Box className="w-5 h-5 text-white relative z-10" />
+                     </div>
+                     <span className="font-bold tracking-tight text-white text-sm">
+                        OBFUSCATOR<span className="text-zinc-500">.IO</span>
+                     </span>
                   </div>
-                  <span className="font-bold tracking-tight text-white text-sm">
-                     OBFUSCATOR<span className="text-zinc-500">.IO</span>
-                  </span>
+               </Link>
+
+               {/* Desktop Links */}
+               <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8">
+                  <Link
+                     href="/pricing"
+                     className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                  >
+                     Pricing
+                  </Link>
+                  <Link
+                     href="#"
+                     className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                  >
+                     Documentation
+                  </Link>
+                  <Link
+                     href="/playground"
+                     className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                  >
+                     Playground
+                  </Link>
                </div>
-            </Link>
 
-            {/* Desktop Links */}
-            <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8">
-               <Link
-                  href="/pricing"
-                  className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-               >
-                  Pricing
-               </Link>
-               <Link
-                  href="#"
-                  className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-               >
-                  Documentation
-               </Link>
-               <Link
-                  href="/playground"
-                  className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-               >
-                  Playground
-               </Link>
+               {/* Actions */}
+               <div className="hidden md:flex items-center gap-6">
+                  <Link
+                     href="/login"
+                     className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                  >
+                     Log in
+                  </Link>
+                  <Link
+                     href="/signup"
+                     className="bg-zinc-100 hover:bg-white text-zinc-950 px-4 py-2 rounded text-xs font-semibold tracking-wide transition-colors uppercase"
+                  >
+                     Start Protecting
+                  </Link>
+               </div>
+
+               {/* Mobile Menu Button */}
+               <div className="md:hidden relative z-50">
+                  <button
+                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                     className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none"
+                  >
+                     <motion.span
+                        animate={
+                           isMobileMenuOpen
+                              ? { rotate: 45, y: 8 }
+                              : { rotate: 0, y: 0 }
+                        }
+                        transition={{
+                           type: "tween",
+                           ease: "easeInOut",
+                           duration: 0.2,
+                        }}
+                        className="w-6 h-0.5 bg-white block rounded-full"
+                     ></motion.span>
+                     <motion.span
+                        animate={
+                           isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }
+                        }
+                        transition={{
+                           type: "tween",
+                           ease: "easeInOut",
+                           duration: 0.2,
+                        }}
+                        className="w-6 h-0.5 bg-white block rounded-full"
+                     ></motion.span>
+                     <motion.span
+                        animate={
+                           isMobileMenuOpen
+                              ? { rotate: -45, y: -8 }
+                              : { rotate: 0, y: 0 }
+                        }
+                        transition={{
+                           type: "tween",
+                           ease: "easeInOut",
+                           duration: 0.2,
+                        }}
+                        className="w-6 h-0.5 bg-white block rounded-full"
+                     ></motion.span>
+                  </button>
+               </div>
             </div>
-
-            {/* Actions */}
-            <div className="hidden md:flex items-center gap-6">
-               <Link
-                  href="/login"
-                  className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-               >
-                  Log in
-               </Link>
-               <Link
-                  href="/signup"
-                  className="bg-zinc-100 hover:bg-white text-zinc-950 px-4 py-2 rounded text-xs font-semibold tracking-wide transition-colors uppercase"
-               >
-                  Start Protecting
-               </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden relative z-50">
-               <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none"
-               >
-                  <motion.span
-                     animate={
-                        isMobileMenuOpen
-                           ? { rotate: 45, y: 8 }
-                           : { rotate: 0, y: 0 }
-                     }
-                     transition={{
-                        type: "tween",
-                        ease: "easeInOut",
-                        duration: 0.2,
-                     }}
-                     className="w-6 h-0.5 bg-white block rounded-full"
-                  ></motion.span>
-                  <motion.span
-                     animate={
-                        isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }
-                     }
-                     transition={{
-                        type: "tween",
-                        ease: "easeInOut",
-                        duration: 0.2,
-                     }}
-                     className="w-6 h-0.5 bg-white block rounded-full"
-                  ></motion.span>
-                  <motion.span
-                     animate={
-                        isMobileMenuOpen
-                           ? { rotate: -45, y: -8 }
-                           : { rotate: 0, y: 0 }
-                     }
-                     transition={{
-                        type: "tween",
-                        ease: "easeInOut",
-                        duration: 0.2,
-                     }}
-                     className="w-6 h-0.5 bg-white block rounded-full"
-                  ></motion.span>
-               </button>
-            </div>
-         </div>
-
+         </nav>
          {/* Mobile Menu Overlay */}
          <AnimatePresence>
             {isMobileMenuOpen && (
@@ -209,6 +210,6 @@ export default function Navigation({ className }: { className?: string }) {
                </motion.div>
             )}
          </AnimatePresence>
-      </nav>
+      </>
    );
 }

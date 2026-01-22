@@ -51,7 +51,7 @@ export default function SignupPage() {
                      <span className="w-full border-t border-border/80" />
                   </div>
                   <div className="relative flex justify-center text-xs">
-                     <span className="bg-background px-2 text-muted-foreground">
+                     <span className="bg-[#0e0f10] px-2 text-muted-foreground">
                         Or continue with
                      </span>
                   </div>
