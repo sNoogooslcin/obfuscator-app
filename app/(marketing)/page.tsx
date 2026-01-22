@@ -3,19 +3,23 @@ import CtaSection from "@/components/cta-section";
 import FaqSection from "@/components/faq-section";
 import FeaturesSection from "@/components/features-section";
 import HeroSection from "@/components/hero-section";
+import BgAmbience from "@/components/ui/bg-ambience";
 import UseCasesSection from "@/components/use-cases-section";
 import WorkflowSection from "@/components/workflow-section";
 
 export default function Home() {
    return (
-      <main className="min-h-screen bg-background">
-         <HeroSection />
-         <CodeComparisonSection />
-         <FeaturesSection />
-         <WorkflowSection />
-         <UseCasesSection />
-         <FaqSection />
-         <CtaSection />
-      </main>
+      <>
+         <BgAmbience />
+         <main className="min-h-screen bg-background">
+            <HeroSection />
+            <CodeComparisonSection />
+            <FeaturesSection />
+            <WorkflowSection />
+            <UseCasesSection />
+            <FaqSection />
+            <CtaSection />
+         </main>
+      </>
    );
 }
