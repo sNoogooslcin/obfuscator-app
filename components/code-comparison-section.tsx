@@ -1,19 +1,13 @@
 "use client";
 
 import { FileCode, FileLock, Settings, Split } from "lucide-react";
-import { BundledLanguage } from "shiki";
-import {
-   CodeBlock,
-   CodeBlockBody,
-   CodeBlockContent,
-   CodeBlockItem,
-} from "./kibo-ui/code-block";
+import { highlight, languages } from "prismjs";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-javascript";
+import Editor from "react-simple-code-editor";
+import "./themes/prism-vscode-dark.css";
 
-const originalCode = [
-   {
-      language: "typescript",
-      filename: "original.ts",
-      code: `// Calculate Discount Logic function 
+const originalCode = `// Calculate Discount Logic function 
 getDiscount(user) { 
    const VIP_RATE = 0.25; 
    const STD_RATE = 0.10;
@@ -26,29 +20,9 @@ getDiscount(user) {
    return user.cartTotal * STD_RATE;
 }
    
-export { getDiscount };`,
-   },
-];
+export { getDiscount };`;
 
-const obfuscatedCode = [
-   {
-      language: "typescript",
-      filename: "obfuscated.ts",
-      code: `var _0x4e2d=['w5PDpsO8','wrHCpA=='...];
-(function(_0x1a2b,_0x3c4d)
-{ var _0x5e6f=_0x4e2d;while(!![])
-{ try{ var _0x7g8h=parseInt
-(_0x5e6f(0x1))... }catch(_0x9i0j){ _0x1a2b
-['push'](_0x1a2b['shift']());
- } } }(_0x4e2d,0x1e4));
-function _vm_exec(_0xOP,_0xST){
-/* VM Bytecode execution loop */
-for(;;){ switch(_0xOP[IP++])
-{ case 0xA4: ST.push(ST.pop
- ()+ST.pop());break;
-case 0xF2: return; } } }`,
-   },
-];
+const obfuscatedCode = `var _0x4e2d=['w5PDpsO8','wrHCpA=='...];(function(_0x1a2b,_0x3c4d){ var _0x5e6f=_0x4e2d;while(!![]){ try{ var _0x7g8h=parseInt(_0x5e6f(0x1))... }catch(_0x9i0j){ _0x1a2b['push'](_0x1a2b['shift']()); } } }(_0x4e2d,0x1e4));function _vm_exec(_0xOP,_0xST){/* VM Bytecode execution loop */for(;;){ switch(_0xOP[IP++]){ case 0xA4: ST.push(ST.pop ()+ST.pop());break;case 0xF2: return; } } }`;
 
 export default function CodeComparisonSection() {
    return (
@@ -69,7 +43,7 @@ export default function CodeComparisonSection() {
             </div>
 
             {/* IDE Window */}
-            <div className="rounded-2xl border border-border/50 bg-variant shadow-2xl overflow-hidden flex flex-col md:flex-row h-150 md:h-125">
+            <div className="rounded-2xl border border-border/50 bg-variant shadow-2xl overflow-hidden flex flex-col md:flex-row h-200 sm:h-150 md:h-125">
                {/* Sidebar (File Tree) */}
                <div className="hidden md:flex w-58 border-r border-border/50 flex-col bg-variant">
                   <div className="h-10 border-b border-border/50 flex items-center px-4">
@@ -110,66 +84,80 @@ export default function CodeComparisonSection() {
                   </div>
 
                   {/* Code Split */}
-                  <div className="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5 overflow-hidden">
+                  <div className="flex-1 md:grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5 overflow-hidden">
                      {/* Left: Source */}
-                     <div className="relative bg-variant flex flex-col">
+                     <div className="relative bg-variant flex flex-col overflow-visible">
                         <div className="absolute top-4 right-4 z-10">
-                           <span className="px-2 py-1 rounded bg-zinc-800/50 border border-border/50 text-[10px] font-medium text-zinc-400 uppercase tracking-wide">
+                           <span className="px-2 py-1 rounded bg-[#1e1e1e] border border-border/50 text-[10px] font-medium text-zinc-400 uppercase tracking-wide">
                               Original
                            </span>
                         </div>
-                        <CodeBlock
-                           data={originalCode}
-                           defaultValue={originalCode[0].language}
-                           className="border-0"
-                        >
-                           <CodeBlockBody>
-                              {(item) => (
-                                 <CodeBlockItem
-                                    key={item.language}
-                                    value={item.language}
-                                 >
-                                    <CodeBlockContent
-                                       language={
-                                          item.language as BundledLanguage
-                                       }
-                                    >
-                                       {item.code}
-                                    </CodeBlockContent>
-                                 </CodeBlockItem>
-                              )}
-                           </CodeBlockBody>
-                        </CodeBlock>
+                        <div className="flex">
+                           {/* Line numbers */}
+                           <div className="hidden md:block w-10 pt-4 text-right pr-2 text-xs text-[#444] select-none bg-variant font-mono z-10 h-full overflow-hidden">
+                              {originalCode.split("\n").map((_, i) => (
+                                 <div key={i} className="leading-6">
+                                    {i + 1}
+                                 </div>
+                              ))}
+                           </div>
+                           <Editor
+                              value={originalCode}
+                              readOnly
+                              onValueChange={() => {}}
+                              highlight={(code) =>
+                                 highlight(code, languages.js, "javascript")
+                              }
+                              padding={16}
+                              style={{
+                                 fontFamily: '"JetBrains Mono", monospace',
+                                 fontSize: 14,
+                                 backgroundColor: "transparent",
+                                 minHeight: "100%",
+                                 lineHeight: "20px",
+                              }}
+                              textareaClassName="focus:outline-none"
+                              className="min-h-full"
+                           />
+                        </div>
                      </div>
+
                      {/* Right: Obfuscated */}
                      <div className="relative bg-variant flex flex-col">
                         <div className="absolute top-4 right-4 z-10">
-                           <span className="px-2 py-1 rounded bg-blue-900/20 border border-blue-500/20 text-[10px] font-medium text-blue-400 uppercase tracking-wide shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                           <span className="px-2 py-1 rounded bg-blue-600 border border-blue-500/20 text-[10px] font-medium text-white uppercase tracking-wide shadow-[0_0_10px_rgba(59,130,246,0.2)]">
                               Protected
                            </span>
                         </div>
-                        <CodeBlock
-                           data={obfuscatedCode}
-                           defaultValue={obfuscatedCode[0].language}
-                           className="border-0"
-                        >
-                           <CodeBlockBody className="bg-variant">
-                              {(item) => (
-                                 <CodeBlockItem
-                                    key={item.language}
-                                    value={item.language}
-                                 >
-                                    <CodeBlockContent
-                                       language={
-                                          item.language as BundledLanguage
-                                       }
-                                    >
-                                       {item.code}
-                                    </CodeBlockContent>
-                                 </CodeBlockItem>
-                              )}
-                           </CodeBlockBody>
-                        </CodeBlock>
+
+                        <div className="flex md:pl-4">
+                           {/* Line numbers */}
+                           <div className="hidden md:block w-10 pt-4 text-right pr-2 text-xs text-[#444] select-none bg-variant font-mono z-10 h-full overflow-hidden">
+                              {obfuscatedCode.split("\n").map((_, i) => (
+                                 <div key={i} className="leading-6">
+                                    {i + 1}
+                                 </div>
+                              ))}
+                           </div>
+                           <Editor
+                              value={obfuscatedCode}
+                              readOnly
+                              onValueChange={() => {}}
+                              highlight={(code) =>
+                                 highlight(code, languages.js, "javascript")
+                              }
+                              padding={16}
+                              style={{
+                                 fontFamily: '"JetBrains Mono", monospace',
+                                 fontSize: 14,
+                                 backgroundColor: "transparent",
+                                 minHeight: "100%",
+                                 lineHeight: "24px",
+                              }}
+                              textareaClassName="focus:outline-none"
+                              className="min-h-full"
+                           />
+                        </div>
                      </div>
                   </div>
                </div>

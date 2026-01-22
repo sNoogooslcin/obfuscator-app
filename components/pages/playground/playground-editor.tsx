@@ -25,7 +25,7 @@ function calculatePrice(quantity, unitPrice) {
 }
 
 // Try it: calculatePrice(10, 20) => 170
-console.log(calculatePrice(10, 20));`
+console.log(calculatePrice(10, 20));`,
    );
 
    return (
