@@ -1,0 +1,12 @@
+{
+   "title": "Tutorial",
+   "icon": "BookOpen",
+   "pages": [
+      "getting-started",
+      "vm-obfuscation",
+      "basic-obfuscation",
+      "html-obfuscation",
+      "best-practices"
+   ],
+   "url": "/docs/tutorial/getting-started"
+}

@@ -1,0 +1,58 @@
+---
+title: Quick Start
+description: Get up and running with Obfuscator.io in seconds.
+icon: Rocket
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
+Obfuscator.io provides multiple ways to secure your code. Choose the method that fits your workflow best.
+
+## Installation
+
+To use our tools locally or in your CI/CD pipeline, install the CLI package.
+
+```package-install
+npm install -g @obfuscator/cli
+```
+
+## Usage
+
+<Steps>
+  <Step>
+    ### Web Interface (No Install)
+    The fastest way to obfuscate a single file is our [Online Playground](/). 
+    
+    1. Paste your code or drag-and-drop a file.
+    2. Configure your protection settings.
+    3. Click **Obfuscate** and download the result.
+  </Step>
+ 
+  <Step>
+    ### Using the CLI
+    Run the obfuscator directly on your files with a simple command:
+
+    ```bash
+    obfuscator input.js --output output.js --compact true
+    ```
+
+  </Step>
+
+  <Step>
+    ### Integrate with your Project
+    For larger projects, create a configuration file `obfuscator.config.js` and run:
+
+    ```bash
+    obfuscator --config ./obfuscator.config.js
+    ```
+
+  </Step>
+</Steps>
+
+## Next Steps
+
+Now that you've obfuscated your first file, dive deeper into our ecosystem:
+
+- Explore the **[Tutorials](/docs/tutorial/getting-started)** for integration guides.
+- Read about our **[Core Concepts](/docs/what-is-obfuscator-io)** to understand the protection layers.
+- Check the **[API Reference](/docs/api-reference/authentication)** for programmatic access.

@@ -1,0 +1,21 @@
+---
+title: HTML Obfuscation
+description: Protecting inline scripts within HTML files.
+---
+
+## HTML Features
+
+The obfuscator can parse HTML files and identify `<script>` tags to obfuscate automatically.
+
+```html
+<!DOCTYPE html>
+<html>
+   <head>
+      <script>
+         // This code will be obfuscated
+         console.log("Hello World");
+      </script>
+   </head>
+   <body></body>
+</html>
+```

@@ -1,7 +1,7 @@
 "use client";
 
+import { Logo } from "@/components/brand/logo";
 import { cn } from "@/lib/utils";
-import { Box } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -51,15 +51,7 @@ export default function Navigation({ className }: { className?: string }) {
                   className="relative z-50"
                   onClick={() => setIsMobileMenuOpen(false)}
                >
-                  <div className="flex items-center gap-2.5 group cursor-pointer">
-                     <div className="relative w-6 h-6 flex items-center justify-center">
-                        <div className="absolute inset-0 bg-blue-500/20 rounded-md blur-sm group-hover:bg-blue-500/40 transition-all"></div>
-                        <Box className="w-5 h-5 text-white relative z-10" />
-                     </div>
-                     <span className="font-bold tracking-tight text-white text-sm">
-                        OBFUSCATOR<span className="text-zinc-500">.IO</span>
-                     </span>
-                  </div>
+                  <Logo />
                </Link>
 
                {/* Desktop Links */}
@@ -71,7 +63,7 @@ export default function Navigation({ className }: { className?: string }) {
                      Pricing
                   </Link>
                   <Link
-                     href="#"
+                     href="/docs"
                      className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
                   >
                      Documentation

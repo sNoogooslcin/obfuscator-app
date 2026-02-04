@@ -24,7 +24,7 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en" className="scroll-smooth">
+      <html lang="en" className="scroll-smooth" suppressHydrationWarning>
          <body
             className={`${inter.className} ${jetbrainsMono.variable} relative overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200 antialiased`}
          >

@@ -1,6 +1,9 @@
 @import "tailwindcss";
+@source "../node_modules/fumadocs-ui/dist/**/*.js";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
 
 @theme {
    --font-sans: var(--font-inter);
@@ -16,14 +19,16 @@
    --color-accent: #3b82f6; /* Blue */
    --color-accentGlow: #60a5fa;
 
+   /* Fumadocs Theme Overrides */
+   --fd-primary: var(--color-accent);
+   --fd-background: var(--color-background);
+   --fd-foreground: var(--color-primary);
+
    --muted: oklch(0.269 0 0);
    --muted-foreground: oklch(0.708 0 0);
 
-   --background-image-grid-pattern: linear-gradient(
-         to right,
-         #1f1f1f 1px,
-         transparent 1px
-      ),
+   --background-image-grid-pattern:
+      linear-gradient(to right, #1f1f1f 1px, transparent 1px),
       linear-gradient(to bottom, #1f1f1f 1px, transparent 1px);
 
    --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -84,6 +89,18 @@
    }
    .toggle-checkbox:checked + .toggle-label {
       background-color: #3b82f6;
+   }
+
+   /* Fumadocs Sidebar Overrides */
+   aside a[data-active="true"],
+   aside button[data-active="true"],
+   aside a[data-active="true"]::before {
+      /* background-color: rgba(96, 165, 250, 0.2) !important; */
+      /* color: #60a5fa !important; */
+   }
+   aside a[data-active="true"] svg,
+   aside button[data-active="true"] svg {
+      /* color: #60a5fa !important; */
    }
 }
 

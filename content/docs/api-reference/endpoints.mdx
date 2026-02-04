@@ -1,0 +1,22 @@
+---
+title: Endpoints
+description: Available API endpoints.
+---
+
+## POST /obfuscate
+
+Submit code for obfuscation.
+
+### Body Parameters
+
+- `code` (string, required): The source code.
+- `options` (object, optional): Obfuscation settings.
+
+### Response
+
+```json
+{
+   "code": "var _0x1234=...",
+   "sourceMap": "..."
+}
+```
