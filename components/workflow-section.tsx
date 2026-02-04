@@ -44,7 +44,7 @@ export default function WorkflowSection() {
                         <div className="absolute inset-2 bg-zinc-900 rounded-full"></div>
                         <FileCodeIcon className="w-8 h-8 text-blue-400 relative z-20" />
                         <div className="absolute -top-2 -right-2 bg-zinc-800 border border-white/10 text-[10px] font-mono px-2 py-0.5 rounded text-zinc-400">
-                           JS
+                           JS/TS
                         </div>
                      </div>
                      <h3 className="text-white font-medium mb-2 md:text-center">

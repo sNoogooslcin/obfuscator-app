@@ -1,4 +1,4 @@
-import Navigation from "@/components/layouts/navigation"; // Adjust import path if needed
+import PlaygroundNavigation from "@/components/pages/playground/playground-navigation";
 
 export default function PlaygroundLayout({
    children,
@@ -7,7 +7,7 @@ export default function PlaygroundLayout({
 }) {
    return (
       <div className="h-screen flex flex-col overflow-hidden bg-[#050505]">
-         <Navigation className="max-w-8xl" />
+         <PlaygroundNavigation />
 
          <div className="flex-1 flex flex-col relative overflow-hidden border-t border-border/80">
             {children}
