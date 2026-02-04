@@ -1,8 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+   Select,
+   SelectContent,
+   SelectItem,
+   SelectTrigger,
+   SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { Info, Settings, Sliders } from "lucide-react";
+import { Info, RefreshCcw, Settings, Sliders } from "lucide-react";
+import { useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 
@@ -94,7 +102,24 @@ const OPTION_GROUPS = [
    },
 ];
 
+const PRESETS = [
+   {
+      group: "Presets",
+      items: [
+         { id: "default", label: "Default" },
+         { id: "low", label: "Low Level" },
+         { id: "medium", label: "Medium Level" },
+         { id: "high", label: "High Level" },
+      ],
+   },
+   {
+      group: "Saved",
+      items: [{ id: "production safe", label: "Production Safe" }],
+   },
+];
+
 export function ObfuscationOptions() {
+   const [preset, setPreset] = useState("default");
    return (
       <div className="flex flex-col h-full bg-neutral-900/70">
          {/* Header */}
@@ -124,9 +149,9 @@ export function ObfuscationOptions() {
             </div>
          </div>
 
-         <div className="relative flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+         <div className="relative flex-1 overflow-y-auto p-6 custom-scrollbar">
             {/* VM Promo */}
-            <div className="relative overflow-hidden rounded-xl border border-blue-500/20 bg-blue-900/10 p-5 group hover:border-blue-500/30 transition-colors">
+            <div className="relative mb-8 overflow-hidden rounded-xl border border-blue-500/20 bg-blue-900/10 p-5 group hover:border-blue-500/30 transition-colors">
                <div className="flex justify-between items-start">
                   <div className="space-y-2">
                      <div className="flex items-center gap-2">
@@ -165,7 +190,7 @@ export function ObfuscationOptions() {
             </div>
 
             {/* Options */}
-            <div className="space-y-8">
+            <div className="space-y-8 mb-4">
                {OPTION_GROUPS.map((group) => (
                   <div key={group.title} className="space-y-4">
                      <div className="flex items-center gap-2 pb-2 border-b border-border">
@@ -182,7 +207,7 @@ export function ObfuscationOptions() {
                               className={cn(
                                  "flex items-center justify-between p-4 hover:bg-white/2 transition-colors",
                                  idx !== group.options.length - 1 &&
-                                    "border-b border-border/40"
+                                    "border-b border-border/40",
                               )}
                            >
                               <div className="space-y-0.5">
@@ -217,28 +242,55 @@ export function ObfuscationOptions() {
                ))}
             </div>
 
-            {/* Footer Sticky */}
-            <div className="sticky bottom-0 pointer-events-none flex justify-center">
-               <Button
-                  size="lg"
-                  className="pointer-events-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_4px_24px_rgba(37,99,235,0.3)] hover:shadow-[0_4px_32px_rgba(37,99,235,0.4)] rounded-full px-8 max-w-60 h-12 text-base font-semibold group transition-all"
-               >
-                  <Settings className="mr-2 h-5 w-5 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
-                  Obfuscate
-               </Button>
+            {/* Footer Sticky Pill */}
+            <div className="sticky bottom-0 pointer-events-none flex justify-center z-20">
+               <div className="pointer-events-auto flex items-center gap-2 p-2 px-3 rounded-full bg-neutral-900/70 border backdrop-blur-3xl border-border shadow-xl transition-all hover:border-blue-500/10">
+                  {/* Settings Icon Pill */}
+                  <div className="h-8 w-8 flex items-center justify-center rounded-full bg-neutral-800/80 border border-white/10">
+                     <Settings className="h-4 w-4 text-secondary" />
+                  </div>
+
+                  {/* Preset Select */}
+                  <Select
+                     value={`Preset: ${preset}`}
+                     onValueChange={(val) => val && setPreset(val)}
+                  >
+                     <SelectTrigger className="w-40 h-10 bg-neutral-800/70 border-white/5 rounded-full text-[13px] font-medium focus:ring-0 focus:ring-offset-0 transition-colors hover:bg-neutral-800/80">
+                        <SelectValue />
+                     </SelectTrigger>
+                     <SelectContent className="bg-variant border border-border/50 ring-0 text-white min-w-48 p-1">
+                        {PRESETS.map((group) => (
+                           <div key={group.group}>
+                              <div className="px-2 py-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                                 {group.group}
+                              </div>
+                              {group.items.map((p) => (
+                                 <SelectItem
+                                    key={p.id}
+                                    value={p.id}
+                                    className="text-[13px] focus:bg-blue-500/20 focus:text-blue-100 rounded-lg"
+                                 >
+                                    {p.label}
+                                 </SelectItem>
+                              ))}
+                           </div>
+                        ))}
+                     </SelectContent>
+                  </Select>
+
+                  <div className="w-px h-5 bg-white/10 mx-1 ml-3.5" />
+
+                  {/* Reset Button */}
+                  <button
+                     onClick={() => setPreset("default")}
+                     className="flex items-center gap-2 px-2.5 h-8 text-[12px] font-semibold text-blue-400/90 hover:text-blue-300 hover:bg-blue-500/10 rounded-full transition-colors group cursor-pointer"
+                  >
+                     <RefreshCcw className="h-3 w-3 transition-transform group-hover:-rotate-45 duration-300" />
+                     <span>Reset</span>
+                  </button>
+               </div>
             </div>
          </div>
-
-         {/* Footer Sticky */}
-         {/* <div className="absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-[#050505] via-[#050505] to-transparent pointer-events-none flex justify-center pb-8 pt-12">
-            <Button
-               size="lg"
-               className="pointer-events-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_4px_24px_rgba(37,99,235,0.3)] hover:shadow-[0_4px_32px_rgba(37,99,235,0.4)] rounded-full w-full max-w-60 h-12 text-base font-semibold group transition-all"
-            >
-               <Settings className="mr-2 h-5 w-5 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
-               Obfuscate
-            </Button>
-         </div> */}
       </div>
    );
 }
